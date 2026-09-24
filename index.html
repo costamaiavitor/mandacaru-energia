@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#111111">
+<meta name="description" content="Mandacaru Energia · energia solar compartilhada no Ceará. Desconto na conta de luz sem instalar nada. Site de demonstração.">
+<title>Mandacaru Energia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme: light;
+  --branco:#FFFFFF;
+  --cinza:#F4F4F4;
+  --cinza-2:#E6E6E6;
+  --preto:#111111;
+  --texto:#111111;
+  --texto-2:#5C5C5C;
+  --laranja:#E8520C;
+  --laranja-escuro:#C24209;
+  --azul:#0B2545;
+  --azul-2:#13335E;
+  --sans:"Albert Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-padding-top:72px;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--branco);color:var(--texto);font:400 16px/1.6 var(--sans);-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+a{color:inherit}
+button,input,select{font:inherit;touch-action:manipulation}
+h1,h2,h3,p,ol,ul,dl,dd,figure{margin:0}
+.wrap{max-width:1180px;margin-inline:auto;padding-inline:16px}
+:focus-visible{outline:2px solid var(--laranja);outline-offset:2px}
+.num{font-variant-numeric:tabular-nums}
+.demo{background:#000;color:#9A9A9A;font:500 .72rem/1.35 var(--sans);text-align:center;padding:6px 16px}
+
+/* barra preta superior */
+.utilidade{background:var(--preto);color:#fff;font:700 .7rem/1 var(--sans);letter-spacing:.06em;text-transform:uppercase}
+.utilidade .wrap{display:flex;align-items:center;gap:10px;height:36px}
+.utilidade span{color:#8C8C8C;font-weight:500}
+.utilidade .barra{width:1px;height:12px;background:var(--laranja)}
+.utilidade .longo{font-weight:700}
+@media (max-width:520px){.utilidade .longo{display:none}}
+.utilidade a{margin-left:auto;text-decoration:none;color:#fff}
+
+/* cabeçalho */
+.topo{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--branco);border-bottom:1px solid var(--cinza-2)}
+.topo .wrap{display:flex;align-items:center;gap:20px;height:64px}
+.marca{display:flex;align-items:center;gap:10px;text-decoration:none;font:700 1.05rem/1 var(--sans);letter-spacing:-.01em}
+.marca small{display:block;font:500 .62rem/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--texto-2);margin-top:3px}
+.menu{display:none;gap:26px;margin-left:auto;font-size:.95rem}
+.menu a{text-decoration:none;color:var(--texto-2)}
+.menu a:hover{color:var(--texto)}
+.bt{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:46px;padding:0 22px;border:0;border-radius:0;background:var(--laranja);color:#fff;font:700 .78rem/1.2 var(--sans);letter-spacing:.06em;text-transform:uppercase;text-decoration:none;cursor:pointer;text-align:center}
+.bt:hover{background:var(--laranja-escuro)}
+.bt-contorno{background:transparent;color:var(--texto);box-shadow:inset 0 0 0 1.5px var(--texto)}
+.bt-contorno:hover{background:var(--texto);color:#fff}
+.bt-branco{background:#fff;color:var(--azul)}
+.bt-branco:hover{background:var(--cinza)}
+.bt-topo{margin-left:auto;min-height:40px;padding:0 16px}
+@media (min-width:980px){.menu{display:flex}.bt-topo{margin-left:8px}}
+.seta{display:inline-flex;align-items:center;gap:10px;color:var(--laranja);font:700 .78rem/1.3 var(--sans);letter-spacing:.06em;text-transform:uppercase;text-decoration:none}
+.seta::after{content:"→";font-size:1.1rem;line-height:1;transition:transform .2s}
+.seta:hover::after{transform:translateX(3px)}
+@media (prefers-reduced-motion:reduce){.seta::after{transition:none}}
+
+/* abertura */
+.abertura{position:relative;background:var(--azul);color:#fff;overflow:hidden}
+.abertura svg.usina{position:absolute;right:-40px;top:0;height:100%;width:auto;min-width:520px;opacity:.55}
+@media (min-width:980px){.abertura svg.usina{opacity:.9;right:0}}
+.abertura::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--azul) 0%,rgba(11,37,69,.92) 45%,rgba(11,37,69,.35) 100%);pointer-events:none}
+.abertura .wrap{position:relative;z-index:1;padding-block:56px 64px}
+.olho{font:700 .72rem/1.3 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:#9FB3CC}
+.abertura h1{font:300 clamp(2.2rem,8.6vw,3.8rem)/1.08 var(--sans);letter-spacing:-.02em;max-width:15ch;margin-top:14px;text-wrap:balance}
+.abertura p.sub{margin-top:18px;max-width:46ch;font-size:1.08rem;color:#D6E0EC;font-weight:300}
+.abertura .acoes{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+
+/* atalhos (grade de serviços) */
+.atalhos{background:var(--cinza);padding-block:40px}
+.atalhos .olho{color:var(--texto-2)}
+.atalhos h2,.secao h2{font:300 clamp(1.7rem,6vw,2.4rem)/1.15 var(--sans);letter-spacing:-.015em;margin-top:10px;text-wrap:balance}
+.atalhos .intro{color:var(--texto-2);margin-top:8px}
+.grade{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px;margin-top:24px;background:var(--cinza-2);border:2px solid var(--cinza-2)}
+@media (min-width:760px){.grade{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (min-width:1100px){.grade{grid-template-columns:repeat(6,minmax(0,1fr))}}
+.atalho{display:flex;flex-direction:column;justify-content:space-between;gap:18px;min-height:128px;padding:16px;background:var(--branco);text-decoration:none;color:var(--texto);font-size:1rem;line-height:1.3}
+.atalho:hover{background:#FFF7F2}
+.atalho svg{width:30px;height:30px;color:var(--laranja)}
+
+/* seções */
+.secao{padding-block:52px}
+.secao.cinza{background:var(--cinza)}
+.secao .olho{color:var(--texto-2)}
+.secao .intro{color:var(--texto-2);margin-top:10px;max-width:60ch}
+
+/* simulador */
+.simulador{display:grid;gap:22px;margin-top:26px}
+@media (min-width:900px){.simulador{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0;border:1px solid var(--cinza-2)}}
+.sim-entrada{background:var(--branco);padding:22px 18px;border:1px solid var(--cinza-2)}
+@media (min-width:900px){.sim-entrada{border:0;border-right:1px solid var(--cinza-2);padding:32px}}
+.sim-entrada label{display:block;font:700 .72rem/1.3 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--texto-2)}
+.valor{display:flex;align-items:baseline;gap:8px;margin-top:10px;border-bottom:2px solid var(--texto)}
+.valor span{font-size:1.3rem;font-weight:300;color:var(--texto-2)}
+.valor input{flex:1;min-width:0;border:0;background:transparent;font:300 2.6rem/1.15 var(--sans);color:var(--texto);padding:2px 0;-moz-appearance:textfield}
+.valor input::-webkit-inner-spin-button{-webkit-appearance:none}
+.valor input:focus{outline:none}
+.valor:focus-within{border-bottom-color:var(--laranja)}
+input[type=range]{width:100%;margin-top:16px;accent-color:var(--laranja);height:24px}
+.tipo{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin-top:20px;border:1px solid var(--cinza-2)}
+.tipo button{min-height:44px;border:0;background:var(--branco);font:500 .9rem/1 var(--sans);cursor:pointer;color:var(--texto-2)}
+.tipo button + button{border-left:1px solid var(--cinza-2)}
+.tipo button[aria-pressed="true"]{background:var(--texto);color:#fff}
+.sim-saida{background:var(--azul);color:#fff;padding:22px 18px;display:grid;gap:16px;align-content:start}
+@media (min-width:900px){.sim-saida{padding:32px}}
+.sim-saida .olho{color:#9FB3CC}
+.destaque{font:300 clamp(2.6rem,10vw,3.6rem)/1 var(--sans);letter-spacing:-.02em}
+.destaque small{font-size:1rem;color:#9FB3CC;margin-left:6px}
+.linhas{border-top:1px solid rgba(255,255,255,.18)}
+.linhas div{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.18);font-size:.95rem}
+.linhas dt{color:#C4D1E0}
+.linhas dd{font-weight:500}
+.sim-saida .aviso{font-size:.8rem;color:#9FB3CC}
+.sim-saida .bt{justify-self:start}
+
+/* como funciona */
+.etapas{list-style:none;padding:0;margin-top:30px;display:grid;gap:0;counter-reset:e;border-top:1px solid var(--cinza-2)}
+@media (min-width:900px){.etapas{grid-template-columns:repeat(4,minmax(0,1fr));border-top:0;gap:28px}}
+.etapas li{counter-increment:e;padding:20px 0;border-bottom:1px solid var(--cinza-2);display:grid;grid-template-columns:48px minmax(0,1fr);gap:4px 14px}
+@media (min-width:900px){.etapas li{grid-template-columns:1fr;border-bottom:0;border-top:3px solid var(--texto);padding-top:18px}}
+.etapas li::before{content:counter(e);grid-row:span 2;font:300 2.2rem/1 var(--sans);color:var(--laranja)}
+@media (min-width:900px){.etapas li::before{grid-row:auto;margin-bottom:8px}}
+.etapas b{font-weight:500;font-size:1.05rem}
+.etapas p{color:var(--texto-2);font-size:.95rem}
+
+/* bloco de cor: a usina */
+.bloco-azul{background:var(--azul);color:#fff;padding-block:52px}
+.bloco-azul .olho{color:#9FB3CC}
+.bloco-azul h2{font:300 clamp(1.7rem,6vw,2.4rem)/1.15 var(--sans);margin-top:10px;max-width:22ch}
+.bloco-azul .intro{color:#C4D1E0;margin-top:10px;max-width:60ch}
+.dados{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));margin-top:26px;border-top:1px solid rgba(255,255,255,.18)}
+@media (min-width:900px){.dados{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.dados div{padding:16px 16px 16px 0;border-bottom:1px solid rgba(255,255,255,.18)}
+.dados dt{font:700 .68rem/1.3 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:#9FB3CC}
+.dados dd{font:300 1.6rem/1.2 var(--sans);margin-top:6px}
+.grafico{margin-top:28px;position:relative}
+.grafico h3{font-weight:500;font-size:1rem}
+.grafico .unid{font-size:.82rem;color:#9FB3CC}
+.grafico svg{display:block;width:100%;height:auto;margin-top:12px;overflow:visible}
+.grafico .grade-l{stroke:rgba(255,255,255,.14);stroke-width:1}
+.grafico .eixo{fill:#9FB3CC;font:400 11px/1 var(--sans)}
+.grafico .barra{fill:#E8EEF5}
+.grafico .alvo{fill:transparent;cursor:pointer}
+.grafico .alvo:hover + .barra,.grafico .ativo .barra{fill:#FF8A4C}
+.dica{position:absolute;pointer-events:none;background:#fff;color:var(--azul);padding:5px 9px;font:500 .8rem/1.35 var(--sans);white-space:nowrap;transform:translate(-50%,-100%);margin-top:-8px}
+.grafico details{margin-top:6px;font-size:.88rem}
+.grafico summary{cursor:pointer;color:#C4D1E0;padding:8px 0}
+.grafico table{border-collapse:collapse;font-size:.82rem;margin-bottom:6px}
+.grafico td,.grafico th{padding:6px 8px;border-bottom:1px solid rgba(255,255,255,.14);text-align:right}
+
+/* novidades */
+.novidades{display:grid;gap:18px;margin-top:26px}
+@media (min-width:900px){.novidades{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.nota{background:var(--branco);border:1px solid var(--cinza-2);display:grid;align-content:start}
+.nota .faixa{height:8px;background:var(--laranja)}
+.nota.azul .faixa{background:var(--azul)}
+.nota.preta .faixa{background:var(--texto)}
+.nota div{padding:18px;display:grid;gap:10px}
+.nota time{font:700 .68rem/1.3 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--texto-2)}
+.nota h3{font:400 1.2rem/1.3 var(--sans)}
+.nota p{color:var(--texto-2);font-size:.94rem}
+
+/* perguntas */
+.faq{margin-top:24px;border-top:1px solid var(--cinza-2)}
+.faq details{border-bottom:1px solid var(--cinza-2)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 0;font-size:1.05rem}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"";flex:none;width:10px;height:10px;border-right:2px solid var(--laranja);border-bottom:2px solid var(--laranja);transform:rotate(45deg);margin-top:-6px;transition:transform .2s}
+.faq details[open] summary::after{transform:rotate(-135deg);margin-top:4px}
+.faq details p{padding-bottom:20px;color:var(--texto-2);max-width:72ch}
+
+/* rodapé preto */
+.rodape{background:var(--preto);color:#fff;padding-block:48px 28px}
+.rodape .colunas{display:grid;gap:28px}
+@media (min-width:900px){.rodape .colunas{grid-template-columns:1.3fr 1fr 1fr 1fr}}
+.rodape h3{font:700 .7rem/1.3 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:#8C8C8C;margin-bottom:12px}
+.rodape ul{list-style:none;padding:0;display:grid;gap:8px}
+.rodape a{text-decoration:none;color:#E0E0E0}
+.rodape a:hover{color:#fff}
+.rodape p{color:#BDBDBD;font-size:.94rem}
+.rodape .tel{font:300 1.6rem/1.2 var(--sans);color:#fff;margin-top:4px}
+.aviso-legal{margin-top:36px;padding-top:18px;border-top:1px solid #2A2A2A;font-size:.8rem;color:#8C8C8C;display:grid;gap:6px}
+</style>
+</head>
+<body>
+
+<div class="demo">Site de demonstração · empresa fictícia · valores de exemplo</div>
+
+<div class="utilidade"><div class="wrap"><span>Mandacaru</span><i class="barra" aria-hidden="true"></i><b class="longo">Energia solar compartilhada · </b>Ceará<a href="#contato">Atendimento</a></div></div>
+
+<header class="topo"><div class="wrap">
+  <a class="marca" href="#inicio" aria-label="Mandacaru Energia, início">
+    <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" fill="#E8520C"/><path d="M17 27V9M17 17h-5v-5M17 20h5v-6" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span>Mandacaru<small>Energia</small></span>
+  </a>
+  <nav class="menu" aria-label="Seções"><a href="#simulador">Simulador</a><a href="#como-funciona">Como funciona</a><a href="#usinas">Usinas</a><a href="#duvidas">Dúvidas</a></nav>
+  <a class="bt bt-topo" id="zap-topo" target="_blank" rel="noopener">Aderir</a>
+</div></header>
+
+<main id="inicio">
+  <section class="abertura">
+    <svg class="usina" id="usina" viewBox="0 0 520 420" preserveAspectRatio="xMaxYMid slice" aria-hidden="true">
+      <defs>
+        <linearGradient id="vidro" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2B4A78"/><stop offset=".6" stop-color="#18304F"/><stop offset="1" stop-color="#0F2038"/></linearGradient>
+        <filter id="sombra" x="-10%" y="-10%" width="130%" height="140%"><feGaussianBlur stdDeviation="2.5"/></filter>
+      </defs>
+      <rect width="520" height="420" fill="#1A2B3F"/>
+    </svg>
+    <div class="wrap">
+      <p class="olho">Energia solar compartilhada</p>
+      <h1>Sua conta de luz até 18% mais barata, sem instalar nada.</h1>
+      <p class="sub">A energia vem das nossas usinas solares no Vale do Jaguaribe e chega como crédito na conta que você já recebe da distribuidora.</p>
+      <div class="acoes"><a class="bt" href="#simulador">Simular minha economia</a><a class="bt bt-branco" href="#como-funciona">Como funciona</a></div>
+    </div>
+  </section>
+
+  <section class="atalhos" aria-labelledby="at-tit"><div class="wrap">
+    <p class="olho">Atalhos</p>
+    <h2 id="at-tit">O que você precisa hoje?</h2>
+    <nav class="grade" aria-label="Atalhos">
+      <a class="atalho" href="#simulador"><svg viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="6" y="3" width="18" height="24"/><path d="M10 8h10M10 14h2M15 14h2M20 14h0M10 19h2M15 19h2M10 23h7"/></svg>Simular economia</a>
+      <a class="atalho" href="#como-funciona"><svg viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="15" cy="15" r="11"/><path d="M15 9v6l4 3"/></svg>Como funciona</a>
+      <a class="atalho" href="#quem-pode"><svg viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 14 15 5l11 9v12H4z"/><path d="M12 26v-7h6v7"/></svg>Quem pode aderir</a>
+      <a class="atalho" href="#documentos"><svg viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 3h11l5 5v19H7z"/><path d="M18 3v5h5M11 15h8M11 20h8"/></svg>Documentos para aderir</a>
+      <a class="atalho" href="#duvidas"><svg viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="15" cy="15" r="11"/><path d="M12 12a3 3 0 1 1 4 2.8c-.8.4-1 .9-1 1.7V18M15 21.5v.5"/></svg>Dúvidas frequentes</a>
+      <a class="atalho" id="zap-atalho" target="_blank" rel="noopener"><svg viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 25l1.6-5A10 10 0 1 1 10 23.4z"/><path d="M11 11c0 4 3.5 8 8 8l1.5-2-2.5-1.5-1.2 1c-1.5-.7-2.6-1.8-3.3-3.3l1-1.2L13 9.5z"/></svg>Falar pelo WhatsApp</a>
+    </nav>
+  </div></section>
+
+  <section class="secao" id="simulador"><div class="wrap">
+    <p class="olho">Simulador</p>
+    <h2>Quanto você economiza</h2>
+    <p class="intro">Informe o valor médio da sua conta. O cálculo usa a tarifa média do Ceará e o nosso desconto sobre a energia compensada.</p>
+    <div class="simulador">
+      <div class="sim-entrada">
+        <label for="conta">Valor médio da conta de luz</label>
+        <div class="valor"><span>R$</span><input id="conta" type="number" inputmode="decimal" min="80" max="20000" step="10" value="450"></div>
+        <input id="faixa" type="range" min="100" max="4000" step="10" value="450" aria-label="Valor médio da conta de luz">
+        <label style="margin-top:22px" id="tipo-rot">Tipo de imóvel</label>
+        <div class="tipo" role="group" aria-labelledby="tipo-rot">
+          <button type="button" data-t="casa" aria-pressed="true">Residência</button>
+          <button type="button" data-t="comercio" aria-pressed="false">Comércio</button>
+          <button type="button" data-t="condominio" aria-pressed="false">Condomínio</button>
+        </div>
+      </div>
+      <div class="sim-saida" aria-live="polite">
+        <p class="olho">Economia estimada</p>
+        <p class="destaque"><span id="s-mes"></span><small>por mês</small></p>
+        <dl class="linhas">
+          <div><dt>Em 12 meses</dt><dd id="s-ano"></dd></div>
+          <div><dt>Energia compensada</dt><dd id="s-kwh"></dd></div>
+          <div><dt>Desconto aplicado</dt><dd id="s-desc"></dd></div>
+        </dl>
+        <p class="aviso" id="s-aviso"></p>
+        <a class="bt bt-branco" id="zap-sim" target="_blank" rel="noopener">Receber proposta</a>
+      </div>
+    </div>
+  </div></section>
+
+  <section class="secao cinza" id="como-funciona"><div class="wrap">
+    <p class="olho">Como funciona</p>
+    <h2>Da adesão à primeira conta com desconto</h2>
+    <ol class="etapas">
+      <li><b>Você envia a conta</b><p>Por WhatsApp ou e-mail. Analisamos o consumo dos últimos 12 meses e enviamos a proposta em até um dia útil.</p></li>
+      <li><b>Assina o termo de adesão</b><p>Assinatura digital, sem taxa de adesão e sem fidelidade.</p></li>
+      <li><b>Cadastramos sua unidade</b><p>Pedimos à distribuidora a inclusão no rateio da usina. Leva de 30 a 90 dias.</p></li>
+      <li><b>Você passa a pagar menos</b><p>A conta da distribuidora cai para a taxa mínima e o boleto da Mandacaru vem com desconto.</p></li>
+    </ol>
+    <p style="margin-top:22px"><a class="seta" href="#duvidas">Ver perguntas frequentes</a></p>
+  </div></section>
+
+  <section class="bloco-azul" id="usinas"><div class="wrap">
+    <p class="olho">Nossas usinas</p>
+    <h2>Energia gerada no sertão, crédito na sua conta</h2>
+    <p class="intro">O Vale do Jaguaribe tem uma das maiores incidências de sol do país. O excedente dos meses secos fica guardado como crédito por até 60 meses.</p>
+    <dl class="dados">
+      <div><dt>Usinas em operação</dt><dd>2</dd></div>
+      <div><dt>Potência instalada</dt><dd>4,2 MWp</dd></div>
+      <div><dt>Módulos</dt><dd class="num">6.888</dd></div>
+      <div><dt>Geração anual</dt><dd id="d-total"></dd></div>
+    </dl>
+    <figure class="grafico" id="grafico">
+      <h3>Geração mensal estimada</h3>
+      <p class="unid">MWh por mês · usinas Mandacaru I e II</p>
+      <svg id="barras" viewBox="0 0 340 220" role="img" aria-label="Geração mensal estimada"></svg>
+      <div class="dica" id="dica" hidden></div>
+      <details><summary>Ver valores em tabela</summary><div style="overflow-x:auto"><table id="tab-geracao"></table></div></details>
+    </figure>
+  </div></section>
+
+  <section class="secao" id="quem-pode"><div class="wrap">
+    <p class="olho">Quem pode aderir</p>
+    <h2>Residências, comércios e condomínios</h2>
+    <p class="intro" id="documentos">Qualquer unidade em baixa tensão na área da distribuidora do Ceará, com conta a partir de R$ 150. Para aderir, você só precisa de uma conta de luz recente, do CPF ou CNPJ do titular e de um e-mail.</p>
+    <div class="novidades">
+      <article class="nota"><span class="faixa"></span><div><time>Residências</time><h3>Casas e apartamentos</h3><p>Próprios ou alugados. Se você se mudar, a adesão acompanha o novo endereço.</p></div></article>
+      <article class="nota azul"><span class="faixa"></span><div><time>Comércios</time><h3>Lojas, clínicas e escritórios</h3><p>Várias unidades do mesmo CNPJ entram em um único contrato, com um só boleto.</p></div></article>
+      <article class="nota preta"><span class="faixa"></span><div><time>Condomínios</time><h3>Áreas comuns</h3><p>Elevadores, bombas e iluminação costumam ser a maior despesa fixa do condomínio.</p></div></article>
+    </div>
+  </div></section>
+
+  <section class="secao cinza" id="duvidas"><div class="wrap">
+    <p class="olho">Dúvidas</p>
+    <h2>Perguntas frequentes</h2>
+    <div class="faq">
+      <details><summary>A Mandacaru substitui a distribuidora?</summary><p>Não. A distribuidora continua entregando a energia e emitindo a sua conta. A Mandacaru gera energia em usina própria e os créditos dessa geração abatem o seu consumo.</p></details>
+      <details><summary>Preciso instalar alguma coisa?</summary><p>Não. Não há equipamentos, obra ou visita técnica. O medidor e a fiação continuam os mesmos.</p></details>
+      <details><summary>E se a usina gerar menos em algum mês?</summary><p>Os créditos dos meses de mais sol ficam guardados por até 60 meses e cobrem os meses de chuva. Se faltar crédito, essa parte é paga à distribuidora e o boleto da Mandacaru diminui na mesma medida.</p></details>
+      <details><summary>Isso é regulamentado?</summary><p>Sim. A geração compartilhada está prevista na Lei 14.300/2022 e nas regras da ANEEL.</p></details>
+      <details><summary>Posso cancelar?</summary><p>Sim, a qualquer momento, com aviso de 90 dias, prazo que a distribuidora leva para retirar a unidade do rateio. Não há multa.</p></details>
+    </div>
+  </div></section>
+</main>
+
+<footer class="rodape" id="contato"><div class="wrap">
+  <div class="colunas">
+    <div><h3>Atendimento</h3><p>WhatsApp, segunda a sexta, das 8h às 18h</p><p class="tel num">(85) 90000-0000</p><p style="margin-top:14px"><a class="seta" id="zap-rodape" target="_blank" rel="noopener">Falar agora</a></p></div>
+    <div><h3>Escritório</h3><p>Av. Dom Luís, 1200, sala 910<br>Meireles, Fortaleza (CE)</p></div>
+    <div><h3>Navegue</h3><ul><li><a href="#simulador">Simulador</a></li><li><a href="#como-funciona">Como funciona</a></li><li><a href="#usinas">Usinas</a></li><li><a href="#duvidas">Dúvidas</a></li></ul></div>
+    <div><h3>Sobre</h3><p>Geração distribuída compartilhada conforme Lei 14.300/2022 e regras da ANEEL.</p></div>
+  </div>
+  <div class="aviso-legal"><span>Mandacaru Energia · CNPJ 00.000.000/0001-00 (fictício)</span><span>A Mandacaru não é distribuidora de energia. A conta de luz continua sendo emitida pela distribuidora da sua região.</span></div>
+</div></footer>
+
+<script>
+// ===== Números usados na simulação (a empresa ajusta aqui) =====
+const ZAP = "5585900000000";       // número fictício
+const TARIFA = 0.98;               // R$ por kWh, com tributos (média)
+const DESCONTOS = {casa: 0.15, comercio: 0.18, condominio: 0.18};
+const FIXO_MIN = 58, FIXO_PCT = 0.13;
+const USINAS_MWP = 4.2;
+const HSP = [5.7,5.4,4.9,4.6,5.0,5.3,5.8,6.3,6.6,6.6,6.5,6.1];
+const MESES = ["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"];
+const DIAS = [31,28,31,30,31,30,31,31,30,31,30,31];
+// ===============================================================
+
+const $ = id => document.getElementById(id);
+const brl = v => v.toLocaleString("pt-BR", {style:"currency", currency:"BRL"});
+const n0 = v => Math.round(v).toLocaleString("pt-BR");
+const zap = t => `https://wa.me/${ZAP}?text=${encodeURIComponent(t)}`;
+const NS = "http://www.w3.org/2000/svg";
+const el = (tag, at) => { const e = document.createElementNS(NS, tag); for (const k in at) e.setAttribute(k, at[k]); return e; };
+
+// ---- usina ao fundo da abertura (vista aérea) ----
+(function(){
+  const svg = $("usina"), W = 22, H = 36, G = 2;
+  for (let m = 0; m < 4; m++) {
+    const y0 = 20 + m * 100, cols = 18, larg = cols * (W + G) - G;
+    svg.append(el("rect", {x: 23, y: y0 + 7, width: larg, height: 2 * H + G, fill: "#000", opacity: .45, filter: "url(#sombra)"}));
+    for (let r = 0; r < 2; r++) for (let c = 0; c < cols; c++) {
+      const x = 20 + c * (W + G), y = y0 + r * (H + G);
+      svg.append(el("rect", {x, y, width: W, height: H, fill: "#8F9AA8"}));
+      svg.append(el("rect", {x: x + .8, y: y + .8, width: W - 1.6, height: H - 1.6, fill: "url(#vidro)"}));
+      let d = ""; const cw = (W - 1.6) / 6, ch = (H - 1.6) / 12;
+      for (let i = 1; i < 6; i++) d += `M${x + .8 + i * cw} ${y + .8}V${y + H - .8}`;
+      for (let j = 1; j < 12; j++) d += `M${x + .8} ${y + .8 + j * ch}H${x + W - .8}`;
+      svg.append(el("path", {d, stroke: "#3A5A88", "stroke-width": .4, fill: "none"}));
+    }
+  }
+})();
+
+// ---- simulador ----
+let tipo = "casa";
+function calcular(conta){
+  const fixo = Math.min(conta, Math.max(FIXO_MIN, conta * FIXO_PCT)), energia = conta - fixo, d = DESCONTOS[tipo];
+  return {economia: energia * d, kwh: energia / TARIFA, desconto: d};
+}
+function atualizar(valor, origem){
+  const v = Number(valor);
+  if (!isFinite(v) || v <= 0) return;
+  if (origem !== "campo") $("conta").value = Math.round(v);
+  if (origem !== "faixa") $("faixa").value = Math.min(4000, Math.max(100, v));
+  const r = calcular(v);
+  $("s-mes").textContent = brl(r.economia);
+  $("s-ano").textContent = brl(r.economia * 12);
+  $("s-kwh").textContent = `${n0(r.kwh)} kWh/mês`;
+  $("s-desc").textContent = `${Math.round(r.desconto * 100)}% sobre a energia`;
+  $("s-aviso").textContent = (v < 150 ? "Para contas abaixo de R$ 150 a economia é pequena. " : "") + "Estimativa com tarifa média de R$ 0,98/kWh. A proposta considera o histórico de 12 meses.";
+  const nomes = {casa: "uma residência", comercio: "um comércio", condominio: "um condomínio"};
+  $("zap-sim").href = zap(`Olá! Tenho ${nomes[tipo]} com conta de luz de aproximadamente ${brl(v)} por mês. Gostaria de receber uma proposta.`);
+}
+$("conta").addEventListener("input", e => atualizar(e.target.value, "campo"));
+$("conta").addEventListener("blur", e => { if (!(Number(e.target.value) > 0)) atualizar(450); });
+$("faixa").addEventListener("input", e => atualizar(e.target.value, "faixa"));
+document.querySelectorAll(".tipo button").forEach(b => b.onclick = () => {
+  tipo = b.dataset.t;
+  document.querySelectorAll(".tipo button").forEach(x => x.setAttribute("aria-pressed", x === b));
+  atualizar($("conta").value);
+});
+atualizar(450);
+
+// ---- gráfico de geração: uma série, redesenhado na largura real ----
+const dados = HSP.map((h, i) => USINAS_MWP * 1000 * h * DIAS[i] * 0.78 / 1000);
+$("d-total").textContent = `${n0(dados.reduce((a, b) => a + b, 0))} MWh`;
+function desenharGrafico(){
+  const g = $("barras");
+  const Wv = Math.max(280, Math.round(g.parentElement.clientWidth)), Hv = Wv < 500 ? 210 : 260, esq = 32, dir = 4, topo = 10, base = 24;
+  g.setAttribute("viewBox", `0 0 ${Wv} ${Hv}`);
+  const maxY = 700, ticks = [0, 175, 350, 525, 700];
+  const larg = (Wv - esq - dir) / 12, folga = Math.min(12, larg * .3), bw = larg - folga;
+  const y = v => topo + (Hv - topo - base) * (1 - v / maxY);
+  let h = ticks.map(t => `<line class="grade-l" x1="${esq}" x2="${Wv - dir}" y1="${y(t)}" y2="${y(t)}"/><text class="eixo" x="${esq - 6}" y="${y(t) + 4}" text-anchor="end">${t}</text>`).join("");
+  dados.forEach((v, i) => {
+    const x = esq + i * larg + folga / 2, yt = y(v), r = 3;
+    const d = `M${x} ${y(0)}V${yt + r}Q${x} ${yt} ${x + r} ${yt}H${x + bw - r}Q${x + bw} ${yt} ${x + bw} ${yt + r}V${y(0)}Z`;
+    h += `<g data-i="${i}"><rect class="alvo" x="${esq + i * larg}" y="${topo}" width="${larg}" height="${Hv - topo - base}"/><path class="barra" d="${d}"/></g>`;
+    h += `<text class="eixo" x="${x + bw / 2}" y="${Hv - 7}" text-anchor="middle">${MESES[i]}</text>`;
+  });
+  g.innerHTML = h;
+  g.setAttribute("aria-label", `Geração mensal estimada: mínima em abril, ${n0(dados[3])} MWh; máxima em outubro, ${n0(dados[9])} MWh.`);
+  const dica = $("dica"), box = $("grafico");
+  g.querySelectorAll("g[data-i]").forEach(gr => {
+    const i = +gr.dataset.i;
+    const mostrar = () => {
+      g.querySelectorAll(".ativo").forEach(a => a.classList.remove("ativo")); gr.classList.add("ativo");
+      const b = gr.querySelector(".barra").getBoundingClientRect(), fb = box.getBoundingClientRect();
+      dica.textContent = `${MESES[i]} · ${n0(dados[i])} MWh`; dica.hidden = false;
+      dica.style.left = Math.min(fb.width - 56, Math.max(56, b.left - fb.left + b.width / 2)) + "px";
+      dica.style.top = (b.top - fb.top) + "px";
+    };
+    gr.addEventListener("pointerenter", mostrar); gr.addEventListener("click", mostrar);
+  });
+  g.addEventListener("pointerleave", () => { dica.hidden = true; g.querySelectorAll(".ativo").forEach(a => a.classList.remove("ativo")); });
+}
+desenharGrafico();
+let tg; addEventListener("resize", () => { clearTimeout(tg); tg = setTimeout(desenharGrafico, 150); });
+$("tab-geracao").innerHTML = `<thead><tr>${MESES.map(m => `<th>${m}</th>`).join("")}</tr></thead><tbody><tr>${dados.map(v => `<td class="num">${n0(v)}</td>`).join("")}</tr></tbody>`;
+
+const msg = "Olá! Vi o site da Mandacaru Energia e gostaria de entender como funciona a energia solar compartilhada.";
+["zap-topo", "zap-atalho", "zap-rodape"].forEach(id => $(id).href = zap(msg));
+</script>
+</body>
+</html>
